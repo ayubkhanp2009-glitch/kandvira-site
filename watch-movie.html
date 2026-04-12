@@ -7,68 +7,81 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --accent: #00d4ff; --bg: #050505; --card-bg: #121212; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; }
-        nav { background: #000; padding: 15px 5%; border-bottom: 1px solid #222; }
-        .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; overflow-x: hidden; }
+        nav { background: #000; padding: 10px 5%; border-bottom: 1px solid #222; text-align: center; }
+        .logo { color: var(--accent); font-size: 20px; font-weight: 800; text-decoration: none; }
         
-        .player-container { max-width: 450px; margin: 20px auto; padding: 0 15px; } /* Max-width kam kiya taki vertical lage */
-        
-        /* 9:16 Vertical Ratio Hack */
+        .player-container { 
+            max-width: 400px; 
+            margin: 10px auto; 
+            padding: 0 15px; 
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+
+        /* 9:16 Responsive Wrapper */
         .video-wrapper {
             width: 100%;
             position: relative;
-            padding-top: 177.77%; /* Magic number for 9:16 (16/9*100) */
+            /* Mobile par height thodi kam rakhi hai taaki button upar dikhe */
+            padding-top: 140%; 
             background: #000;
             border-radius: 15px;
             border: 2px solid #222;
             overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .video-wrapper img {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover; /* Taki image stretch na ho */
-            opacity: 0.6;
-            transition: 0.4s;
+            object-fit: cover;
+            opacity: 0.8;
         }
-
-        .video-wrapper:hover img { opacity: 0.9; transform: scale(1.05); }
 
         .play-overlay {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 80px;
+            font-size: 60px;
             color: white;
             z-index: 5;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            text-shadow: 0 0 15px rgba(0,0,0,0.8);
         }
 
-        .movie-details { margin-top: 20px; background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #222; text-align: center; }
-        .file-tag { background: var(--accent); color: #000; padding: 5px 12px; border-radius: 6px; font-weight: bold; font-size: 12px; text-transform: uppercase; }
+        .movie-details { 
+            margin-top: 15px; 
+            background: var(--card-bg); 
+            padding: 15px; 
+            border-radius: 15px; 
+            border: 1px solid #222; 
+            text-align: center;
+        }
+
+        .file-tag { background: var(--accent); color: #000; padding: 4px 10px; border-radius: 5px; font-weight: bold; font-size: 11px; }
         
-        #movieTitle { font-size: 22px; margin: 15px 0; display: block; text-decoration: none; color: white; line-height: 1.3; }
-        #movieTitle:hover { color: var(--accent); }
+        #movieTitle { font-size: 18px; margin: 10px 0; color: white; line-height: 1.3; }
 
         .btn-watch { 
             display: block; 
             background: var(--accent); 
             color: #000; 
             text-align: center; 
-            padding: 15px; 
-            border-radius: 10px; 
+            padding: 12px; 
+            border-radius: 8px; 
             text-decoration: none; 
             font-weight: bold; 
-            margin-top: 15px; 
-            font-size: 18px; 
-            transition: 0.3s;
+            font-size: 16px; 
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
         }
-        .btn-watch:hover { background: #fff; transform: translateY(-3px); }
 
-        footer { text-align: center; padding: 30px; color: #444; font-size: 11px; }
+        /* Desktop par thoda bada dikhe */
+        @media (min-width: 768px) {
+            .video-wrapper { padding-top: 177.77%; }
+            .player-container { margin: 30px auto; }
+        }
     </style>
 </head>
 <body>
@@ -78,33 +91,26 @@
 <div class="player-container">
     <a href="#" id="mainPlayLink">
         <div class="video-wrapper">
-            <img src="" id="playerPoster" alt="Vertical Poster">
+            <img src="" id="playerPoster">
             <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
         </div>
     </a>
 
     <div class="movie-details">
         <span class="file-tag" id="fileNoTag">FILE NO. --</span>
-        <a href="#" id="titleLink"><h1 id="movieTitle">Loading...</h1></a>
+        <h1 id="movieTitle">Loading...</h1>
         <a href="#" id="watchBtn" class="btn-watch">WATCH NOW (TERABOX)</a>
     </div>
 </div>
 
-<footer>© 2026 HollywoodPro</footer>
-
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const mName = urlParams.get('name') || "Hollywood Movie";
-    const mFile = urlParams.get('file') || "000";
-    const mPost = urlParams.get('poster') || "https://via.placeholder.com/1080x1920?text=9:16+Poster";
-    const mTera = urlParams.get('link') || "#";
-
-    document.getElementById('movieTitle').innerText = mName;
-    document.getElementById('fileNoTag').innerText = "[FILE NO. " + mFile + "]";
-    document.getElementById('playerPoster').src = mPost;
+    document.getElementById('movieTitle').innerText = urlParams.get('name') || "Hollywood Movie";
+    document.getElementById('fileNoTag').innerText = "[FILE NO. " + (urlParams.get('file') || "000") + "]";
+    document.getElementById('playerPoster').src = urlParams.get('poster') || "";
     
+    const mTera = urlParams.get('link') || "#";
     document.getElementById('mainPlayLink').href = mTera;
-    document.getElementById('titleLink').href = mTera;
     document.getElementById('watchBtn').href = mTera;
 </script>
 
