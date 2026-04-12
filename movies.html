@@ -14,14 +14,23 @@
         #movieSearch { width: 90%; max-width: 500px; padding: 15px 25px; border-radius: 50px; border: 1px solid #333; background: #1a1a1a; color: white; outline: none; }
         .container { padding: 20px 5%; }
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 25px; }
+        
+        /* Movie Card Setup */
         .movie-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid #222; }
         .movie-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card-link { text-decoration: none; color: inherit; display: block; }
+        
         .badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: #000; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; z-index: 10; }
-        .movie-card img { width: 100%; height: 250px; object-fit: cover; }
+        .quality { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px; }
+
+        .movie-card img { width: 100%; height: 250px; object-fit: cover; display: block; }
         .movie-info { padding: 15px; }
         .file-no { color: var(--accent); font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; }
-        .movie-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; height: 40px; overflow: hidden; }
-        .btn-download { background: transparent; color: var(--accent); text-decoration: none; padding: 8px; border-radius: 8px; font-size: 13px; display: block; text-align: center; font-weight: bold; border: 1px solid var(--accent); }
+        .movie-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; height: 40px; overflow: hidden; line-height: 1.4; }
+        
+        .btn-download { background: transparent; color: var(--accent); text-decoration: none; padding: 8px; border-radius: 8px; font-size: 13px; display: block; text-align: center; font-weight: bold; border: 1px solid var(--accent); transition: 0.3s; }
+        .movie-card:hover .btn-download { background: var(--accent); color: #000; }
+
         @media (max-width: 480px) { .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
     </style>
 </head>
@@ -30,7 +39,7 @@
 <nav><a href="movies.html" class="logo">HOLLYWOOD<span style="color:white">PRO</span></a></nav>
 
 <div class="hero">
-    <h1>Premium Database</h1>
+    <h1>Premium Hollywood Hub</h1>
     <input type="text" id="movieSearch" placeholder="Search File No. or Name..." onkeyup="filterMovies()">
 </div>
 
@@ -38,23 +47,29 @@
     <div class="movie-grid" id="movieList">
         
         <div class="movie-card">
-            <div class="badge">MOVIE</div>
-            <img src="https://via.placeholder.com/300x450?text=Batman" alt="Movie">
-            <div class="movie-info">
-                <span class="file-no">[FILE NO. 101]</span>
-                <div class="movie-title">The Batman (2024)</div>
-                <a href="watch-movie.html?name=The Batman (2024)&file=101&poster=https://via.placeholder.com/300x450?text=Batman&link=YOUR_TERABOX_LINK" class="btn-download">Watch Now</a>
-            </div>
+            <a href="watch-movie.html?name=The Batman (2024)&file=101&poster=https://via.placeholder.com/300x450?text=Batman&link=YOUR_TERABOX_LINK" class="card-link">
+                <div class="badge">MOVIE</div>
+                <div class="quality">4K UHD</div>
+                <img src="https://via.placeholder.com/300x450?text=Batman" alt="Movie">
+                <div class="movie-info">
+                    <span class="file-no">[FILE NO. 101]</span>
+                    <div class="movie-title">The Batman (2024) - English</div>
+                    <div class="btn-download"><i class="fas fa-play"></i> Watch Now</div>
+                </div>
+            </a>
         </div>
 
         <div class="movie-card">
-            <div class="badge" style="background:#ff0055; color:#fff;">SERIES</div>
-            <img src="https://via.placeholder.com/300x450?text=Stranger+Things" alt="Series">
-            <div class="movie-info">
-                <span class="file-no">[FILE NO. 102]</span>
-                <div class="movie-title">Stranger Things S05</div>
-                <a href="watch-movie.html?name=Stranger Things S05&file=102&poster=https://via.placeholder.com/300x450?text=Stranger+Things&link=YOUR_TERABOX_LINK" class="btn-download">Watch Now</a>
-            </div>
+            <a href="watch-movie.html?name=Stranger Things S05&file=102&poster=https://via.placeholder.com/300x450?text=Stranger+Things&link=YOUR_TERABOX_LINK" class="card-link">
+                <div class="badge" style="background:#ff0055; color:#fff;">SERIES</div>
+                <div class="quality">1080p</div>
+                <img src="https://via.placeholder.com/300x450?text=Stranger+Things" alt="Series">
+                <div class="movie-info">
+                    <span class="file-no">[FILE NO. 102]</span>
+                    <div class="movie-title">Stranger Things S05 (Complete)</div>
+                    <div class="btn-download"><i class="fas fa-play"></i> View Episodes</div>
+                </div>
+            </a>
         </div>
 
     </div>
