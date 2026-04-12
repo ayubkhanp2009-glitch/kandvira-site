@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollywood Premium - Watch English Movies & Series</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --accent: #00d4ff; --bg: #050505; --card-bg: #121212; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; }
+        
+        /* Premium Nav */
+        nav { background: rgba(0,0,0,0.9); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
+        .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; letter-spacing: 1px; }
+        .nav-links a { color: #bbb; text-decoration: none; margin-left: 20px; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hollywood Hero Section */
+        .hero { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, var(--bg)); }
+        .hero h1 { font-size: 28px; margin-bottom: 10px; color: #fff; }
+        .hero p { color: #888; font-size: 14px; margin-bottom: 25px; }
+        
+        #movieSearch { 
+            width: 90%; max-width: 500px; padding: 15px 25px; border-radius: 50px; 
+            border: 1px solid #333; background: #1a1a1a; color: white; font-size: 16px; 
+            outline: none; transition: 0.3s;
+        }
+        #movieSearch:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+
+        /* Movie Grid */
+        .container { padding: 20px 5%; }
+        .section-title { font-size: 18px; margin-bottom: 20px; color: #eee; border-left: 4px solid var(--accent); padding-left: 10px; }
+        
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 25px; }
+        
+        .movie-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid #222; }
+        .movie-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        
+        .badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: #000; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; z-index: 10; }
+        .quality { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px; border: 1px solid #444; }
+
+        .movie-card img { width: 100%; height: 250px; object-fit: cover; filter: brightness(0.8); transition: 0.3s; }
+        .movie-card:hover img { filter: brightness(1); }
+        
+        .movie-info { padding: 15px; }
+        .movie-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; height: 40px; overflow: hidden; line-height: 1.4; }
+        
+        .btn-download { 
+            background: transparent; color: var(--accent); text-decoration: none; 
+            padding: 8px; border-radius: 8px; font-size: 13px; display: block; 
+            text-align: center; font-weight: bold; border: 1px solid var(--accent); transition: 0.3s; 
+        }
+        .btn-download:hover { background: var(--accent); color: #000; }
+
+        footer { text-align: center; padding: 40px; color: #444; font-size: 12px; background: #000; margin-top: 50px; }
+        
+        @media (max-width: 480px) {
+            .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .movie-card img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">HOLLYWOOD<span style="color:white">PRO</span></a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="movies.html" style="color: var(--accent);">Hollywood</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>English Movies & Series</h1>
+    <p>Stream Premium Hollywood Content via TeraBox High-Speed Links</p>
+    <input type="text" id="movieSearch" placeholder="Search Title, Genre or Year..." onkeyup="filterMovies()">
+</div>
+
+<div class="container">
+    <h2 class="section-title">Recently Added</h2>
+    <div class="movie-grid" id="movieList">
+        
+        <div class="movie-card">
+            <div class="badge">MOVIE</div>
+            <div class="quality">4K UHD</div>
+            <img src="https://via.placeholder.com/300x450?text=Hollywood+Movie+1" alt="Movie">
+            <div class="movie-info">
+                <div class="movie-title">The Batman (2024) - English</div>
+                <a href="TERABOX_LINK" class="btn-download"><i class="fas fa-play"></i> Watch Now</a>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="badge" style="background: #ff0055; color: white;">SERIES</div>
+            <div class="quality">1080p</div>
+            <img src="https://via.placeholder.com/300x450?text=TV+Series+1" alt="Series">
+            <div class="movie-info">
+                <div class="movie-title">Stranger Things S05 (Complete)</div>
+                <a href="TERABOX_LINK" class="btn-download"><i class="fas fa-play"></i> View Episodes</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 HollywoodPro - Premium English Content Hub
+</footer>
+
+<script>
+    function filterMovies() {
+        let input = document.getElementById('movieSearch').value.toLowerCase();
+        let cards = document.getElementsByClassName('movie-card');
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].querySelector('.movie-title').innerText.toLowerCase();
+            cards[i].style.display = title.includes(input) ? "" : "none";
+        }
+    }
+</script>
+
+</body>
+</html>
