@@ -8,6 +8,19 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     
+    <script type="application/ld+json" id="schema-script">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "TeraBox Viral Video",
+      "description": "Watch the latest viral video updates on TeraBox Player.",
+      "thumbnailUrl": "favicon.png",
+      "uploadDate": "2026-04-12T08:00:00+08:00",
+      "contentUrl": "https://www.player-terabox-video.pics/video.html",
+      "embedUrl": "https://www.player-terabox-video.pics/video.html"
+    }
+    </script>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -68,7 +81,6 @@
     // Link set karein
     if(link) {
         document.getElementById('v-link').href = link;
-        // Thumbnail par click karne se bhi link khule
         document.getElementById('thumb-container').onclick = function() {
             window.location.href = link;
         };
@@ -78,9 +90,35 @@
     if(img) {
         document.getElementById('v-thumb').src = img;
     } else {
-        // Agar image na ho toh default black box dikhe
         document.getElementById('v-thumb').style.display = 'none';
     }
+
+    // --- Dynamic Schema Update Logic ---
+    try {
+        const currentUrl = window.location.href;
+        const sTitle = title || "Viral TeraBox Video";
+        const sImg = img || "favicon.png";
+
+        const schemaData = {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "name": sTitle,
+          "description": "Watch " + sTitle + " full video on TeraBox player. Latest viral updates 2026.",
+          "thumbnailUrl": sImg,
+          "uploadDate": new Date().toISOString(),
+          "contentUrl": currentUrl,
+          "embedUrl": currentUrl,
+          "publisher": {
+            "@type": "Organization",
+            "name": "TeraBox Videos",
+            "logo": {
+              "@type": "ImageObject",
+              "url": window.location.origin + "/favicon.png"
+            }
+          }
+        };
+        document.getElementById('schema-script').text = JSON.stringify(schemaData);
+    } catch(e) { console.log("Schema error"); }
 </script>
 
 </body>
