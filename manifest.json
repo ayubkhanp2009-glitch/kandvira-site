@@ -1,0 +1,15 @@
+{
+  "name": "TeraBox Video Hub",
+  "short_name": "TBVideos",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#00897b",
+  "theme_color": "#00897b",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/gkNz4Xtc/IMG-20260113-013354-300-(1).jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
