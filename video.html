@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #111; color: white; margin: 0; }
+        .player-container { padding: 15px; text-align: center; }
+        .thumb-box { width: 100%; max-width: 600px; margin: 0 auto 20px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
+        .thumb-box img { width: 100%; display: block; filter: brightness(0.8); }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 80px; color: rgba(255,255,255,0.9); }
+        
+        .video-details { text-align: left; max-width: 600px; margin: 0 auto; padding: 10px; }
+        .video-details h2 { font-size: 20px; color: #00897b; margin-bottom: 10px; }
+        .video-details p { color: #ccc; font-size: 14px; line-height: 1.5; border-left: 3px solid #00897b; padding-left: 10px; }
+        
+        .action-area { margin-top: 30px; text-align: center; }
+        .play-btn { background: #00897b; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(0,137,123,0.4); }
+        .play-btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="javascript:history.back()" style="color:white; text-decoration:none;"><span class="material-icons">arrow_back</span></a>
+    <h1>TeraBox Player</h1>
+    <span class="material-icons">share</span>
+</header>
+
+<div class="player-container">
+    <div class="thumb-box" id="thumb-container">
+        <img id="v-thumb" src="" alt="Video Thumbnail">
+        <span class="material-icons play-icon">play_circle_filled</span>
+    </div>
+
+    <div class="video-details">
+        <h2 id="v-title">Loading Title...</h2>
+        <p id="v-desc">Watch this video on TeraBox. Click the button below to start streaming or download the file.</p>
+    </div>
+
+    <div class="action-area">
+        <a id="v-link" href="#" class="play-btn">
+            <span class="material-icons">play_arrow</span> Watch Full Video
+        </a>
+    </div>
+</div>
+
+<script>
+    // URL se data nikalne ka logic
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get('title');
+    const link = params.get('link');
+    const img = params.get('img');
+
+    // Title set karein
+    if(title) {
+        document.getElementById('v-title').innerText = title;
+        document.title = title; // Browser tab ka naam
+    }
+
+    // Link set karein
+    if(link) {
+        document.getElementById('v-link').href = link;
+        // Thumbnail par click karne se bhi link khule
+        document.getElementById('thumb-container').onclick = function() {
+            window.location.href = link;
+        };
+    }
+
+    // Thumbnail set karein
+    if(img) {
+        document.getElementById('v-thumb').src = img;
+    } else {
+        // Agar image na ho toh default black box dikhe
+        document.getElementById('v-thumb').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
