@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Releases - Hollywood Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --accent: #00d4ff; --bg: #050505; --card-bg: #121212; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; }
+        
+        nav { background: rgba(0,0,0,0.9); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
+        .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
+        
+        .header-section { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, var(--bg)); border-bottom: 1px solid #222; }
+        .header-section h1 { color: var(--accent); margin: 0; font-size: 32px; text-transform: uppercase; letter-spacing: 2px; }
+        .header-section p { color: #888; margin-top: 10px; font-size: 14px; }
+
+        .container { padding: 30px 5%; }
+        .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        
+        .movie-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid #222; }
+        .movie-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,212,255,0.2); }
+        .card-link { text-decoration: none; color: inherit; display: block; }
+        
+        .badge-new { position: absolute; top: 10px; left: 10px; background: #ff3e3e; color: #fff; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px; z-index: 10; box-shadow: 0 0 10px rgba(255,62,62,0.5); }
+        .quality { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 4px; z-index: 10; }
+
+        .poster-wrapper { width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; }
+        .poster-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 0.5s; }
+
+        .movie-info { padding: 12px; }
+        .file-no { color: var(--accent); font-weight: bold; font-size: 12px; display: block; margin-bottom: 5px; }
+        .movie-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; height: 38px; overflow: hidden; line-height: 1.4; color: #efefef; }
+        
+        .btn-watch { background: var(--accent); color: #000; text-decoration: none; padding: 10px; border-radius: 8px; font-size: 12px; display: block; text-align: center; font-weight: bold; transition: 0.3s; }
+        .btn-watch:hover { background: #fff; }
+
+        .back-btn { display: inline-block; margin-top: 20px; color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .back-btn:hover { color: var(--accent); }
+
+        @media (max-width: 480px) { 
+            .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="movies.html" class="logo">HOLLYWOOD<span style="color:white">PRO</span></a>
+    <a href="movies.html" style="color:white; text-decoration:none; font-size:14px;"><i class="fas fa-home"></i> Home</a>
+</nav>
+
+<div class="header-section">
+    <h1><i class="fas fa-fire"></i> Latest Movies</h1>
+    <p>Freshly Added to the Database</p>
+    <a href="movies.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to All Movies</a>
+</div>
+
+<div class="container">
+    <div class="movie-grid">
+        
+        <div class="movie-card">
+            <a href="watch-movie.html?name=Murmur of the Heart (1971)&file=466&poster=https://i.postimg.cc/Pq03k7Xh/murmur-of-the-heart-1971-139074.jpg&link=https://teraboxlink.com/s/1HK8XmxJjoKvc15gQPRMdhg" class="card-link">
+                <div class="badge-new">NEW</div><div class="quality">HD 720p</div>
+                <div class="poster-wrapper"><img src="https://i.postimg.cc/Pq03k7Xh/murmur-of-the-heart-1971-139074.jpg"></div>
+                <div class="movie-info">
+                    <span class="file-no">[FILE NO. 466]</span>
+                    <div class="movie-title">Murmur of the Heart (1971)</div>
+                    <div class="btn-watch">Watch Now</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="watch-movie.html?name=Premium Video&file=465&poster=https://i.postimg.cc/gkf5yfWs/photo-2026-04-13-00-18-44.jpg&link=https://1024terabox.com/s/1ghbofBlnIXqQsqnTAW9QEA" class="card-link">
+                <div class="badge-new">NEW</div><div class="quality">4K UHD</div>
+                <div class="poster-wrapper"><img src="https://i.postimg.cc/gkf5yfWs/photo-2026-04-13-00-18-44.jpg"></div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 465]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-watch">Watch Now</div></div>
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="watch-movie.html?name=Premium Video&file=464&poster=https://i.postimg.cc/wjmCS92K/photo-2026-04-13-00-17-52.jpg&link=https://1024terabox.com/s/1Etq4S8bGtuw53sU74l2Xpg" class="card-link">
+                <div class="badge-new">NEW</div><div class="quality">4K UHD</div>
+                <div class="poster-wrapper"><img src="https://i.postimg.cc/wjmCS92K/photo-2026-04-13-00-17-52.jpg"></div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 464]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-watch">Watch Now</div></div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
