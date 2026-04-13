@@ -10,12 +10,46 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; }
         nav { background: rgba(0,0,0,0.9); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
         .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
-        .hero { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, var(--bg)); }
-        #movieSearch { width: 90%; max-width: 500px; padding: 15px 25px; border-radius: 50px; border: 1px solid #333; background: #1a1a1a; color: white; outline: none; border: 1px solid var(--accent); }
         
+        .hero { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, var(--bg)); }
+        
+        .stats-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .btn-latest { 
+            display: inline-block; 
+            background: linear-gradient(45deg, var(--accent), #0055ff); 
+            color: #000; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0,212,255,0.4);
+            transition: 0.3s;
+        }
+        .btn-latest:hover { transform: scale(1.05); color: white; }
+
+        .search-box { position: relative; max-width: 500px; margin: 0 auto; }
+        #movieSearch { width: 100%; padding: 15px 25px; border-radius: 50px; border: 1px solid var(--accent); background: #1a1a1a; color: white; outline: none; box-sizing: border-box; }
+        
+        #searchStatus { margin-top: 15px; font-size: 14px; color: #888; }
+
         .container { padding: 20px 5%; }
         .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
         
+        #noResult { display: none; text-align: center; padding: 50px; color: #555; font-size: 18px; width: 100%; grid-column: 1 / -1; }
+
         .movie-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; position: relative; transition: 0.4s; border: 1px solid #222; }
         .movie-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,212,255,0.2); }
         .card-link { text-decoration: none; color: inherit; display: block; }
@@ -25,39 +59,41 @@
 
         .poster-wrapper { width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: #000; }
         .poster-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: 0.5s; }
-        .movie-card:hover .poster-wrapper img { transform: scale(1.05); opacity: 0.8; }
 
         .movie-info { padding: 12px; }
         .file-no { color: var(--accent); font-weight: bold; font-size: 12px; display: block; margin-bottom: 5px; }
         .movie-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; height: 38px; overflow: hidden; line-height: 1.4; color: #efefef; }
         
         .btn-download { background: transparent; color: var(--accent); text-decoration: none; padding: 8px; border-radius: 8px; font-size: 12px; display: block; text-align: center; font-weight: bold; border: 1px solid var(--accent); transition: 0.3s; }
-        .movie-card:hover .btn-download { background: var(--accent); color: #000; }
 
         @media (max-width: 480px) { 
             .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
-            .movie-title { font-size: 12px; }
         }
     </style>
 </head>
-<body>
+<body onload="updateTotal()">
 
 <nav><a href="movies.html" class="logo">HOLLYWOOD<span style="color:white">PRO</span></a></nav>
 
 <div class="hero">
-    <h1>Premium Hollywood Hub</h1>
-    <input type="text" id="movieSearch" placeholder="Search File No. or Name..." onkeyup="filterMovies()">
+    <div class="stats-badge"><i class="fas fa-video"></i> Total Videos: <span id="totalCount">0</span></div>
+    <br>
+    <a href="latest.html" class="btn-latest"><i class="fas fa-fire"></i> LATEST MOVIES</a>
+    
+    <div class="search-box">
+        <input type="text" id="movieSearch" placeholder="Search File No. or Name..." onkeyup="filterMovies()">
+    </div>
+    <div id="searchStatus">Loading database...</div>
 </div>
 
 <div class="container">
     <div class="movie-grid" id="movieList">
-        
+        <div id="noResult"><i class="fas fa-search" style="font-size:40px;margin-bottom:10px;"></i><br>Bhai, ye movie database mein nahi hai!</div>
+
         <div class="movie-card">
             <a href="watch-movie.html?name=Murmur of the Heart (1971)&file=466&poster=https://i.postimg.cc/Pq03k7Xh/murmur-of-the-heart-1971-139074.jpg&link=https://teraboxlink.com/s/1HK8XmxJjoKvc15gQPRMdhg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">HD 720p</div>
-                <div class="poster-wrapper">
-                    <img src="https://i.postimg.cc/Pq03k7Xh/murmur-of-the-heart-1971-139074.jpg" alt="Murmur of the Heart 1971 Movie">
-                </div>
+                <div class="poster-wrapper"><img src="https://i.postimg.cc/Pq03k7Xh/murmur-of-the-heart-1971-139074.jpg"></div>
                 <div class="movie-info">
                     <span class="file-no">[FILE NO. 466]</span>
                     <div class="movie-title">Murmur of the Heart (1971)</div>
@@ -69,12 +105,8 @@
         <div class="movie-card">
             <a href="watch-movie.html?name=Premium Video&file=465&poster=https://i.postimg.cc/gkf5yfWs/photo-2026-04-13-00-18-44.jpg&link=https://1024terabox.com/s/1ghbofBlnIXqQsqnTAW9QEA" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
-                <div class="poster-wrapper"><img src="https://i.postimg.cc/gkf5yfWs/photo-2026-04-13-00-18-44.jpg" alt="Hollywood Premium Video 465"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 465]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="poster-wrapper"><img src="https://i.postimg.cc/gkf5yfWs/photo-2026-04-13-00-18-44.jpg"></div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 465]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -82,11 +114,7 @@
             <a href="watch-movie.html?name=Premium Video&file=464&poster=https://i.postimg.cc/wjmCS92K/photo-2026-04-13-00-17-52.jpg&link=https://1024terabox.com/s/1Etq4S8bGtuw53sU74l2Xpg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/wjmCS92K/photo-2026-04-13-00-17-52.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 464]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 464]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -94,11 +122,7 @@
             <a href="watch-movie.html?name=The Art of Jiy&file=463&poster=https://i.postimg.cc/V6mPq2XW/photo-2026-04-13-00-16-47.jpg&link=https://1024terabox.com/s/1NBWYe08zPWPldZT0Xkb9iA" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/V6mPq2XW/photo-2026-04-13-00-16-47.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 463]</span>
-                    <div class="movie-title">The Art of Jiy</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 463]</span><div class="movie-title">The Art of Jiy</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -106,11 +130,7 @@
             <a href="watch-movie.html?name=Premium Video&file=462&poster=https://i.postimg.cc/fLNDHVQK/photo-2026-04-13-00-15-48.jpg&link=https://1024terabox.com/s/1CpOc4_Vst6YCKutu2QP1FQ" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/fLNDHVQK/photo-2026-04-13-00-15-48.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 462]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 462]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -118,11 +138,7 @@
             <a href="watch-movie.html?name=Premium Video&file=461&poster=https://i.postimg.cc/D0h0bCwp/0635f5af-cdc0-4128-985a-8ad071dd180c-link-in-bio-links-block-home.webp&link=https://1024terabox.com/s/1X4qIfA3YxiaDT16LsS6Yqw" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/D0h0bCwp/0635f5af-cdc0-4128-985a-8ad071dd180c-link-in-bio-links-block-home.webp"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 461]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 461]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -130,11 +146,7 @@
             <a href="watch-movie.html?name=Premium Video&file=460&poster=https://i.postimg.cc/qvJKF74k/photo-2026-04-13-00-13-40.jpg&link=https://1024terabox.com/s/1eFOyvC9NfBumYYHCToGK6w" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/qvJKF74k/photo-2026-04-13-00-13-40.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 460]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 460]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -142,11 +154,7 @@
             <a href="watch-movie.html?name=Premium Video&file=459&poster=https://i.postimg.cc/LXbgYkZw/photo-2026-04-13-00-11-30.jpg&link=https://1024terabox.com/s/19GZ9hZaljgkyXuqiQ5-JMA" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/LXbgYkZw/photo-2026-04-13-00-11-30.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 459]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 459]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -154,11 +162,7 @@
             <a href="watch-movie.html?name=Premium Video&file=458&poster=https://i.postimg.cc/PJJb0rmj/d3a08b0c-5323-4533-bfa7-6c41328c14d6-link-in-bio-links-block-home.webp&link=https://1024terabox.com/s/13t4YzxZZ0o8biou-yB3UuQ" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/PJJb0rmj/d3a08b0c-5323-4533-bfa7-6c41328c14d6-link-in-bio-links-block-home.webp"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 458]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 458]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -166,11 +170,7 @@
             <a href="watch-movie.html?name=Premium Video&file=457&poster=https://i.postimg.cc/L8cyffjV/2f02a482-c5b6-4d4f-8bd2-1d73b78805e1-link-in-bio-links-block-home.webp&link=https://1024terabox.com/s/1fE_amDt78-mGSbe_jePebQ" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/L8cyffjV/2f02a482-c5b6-4d4f-8bd2-1d73b78805e1-link-in-bio-links-block-home.webp"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 457]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 457]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -178,11 +178,7 @@
             <a href="watch-movie.html?name=Premium Video&file=456&poster=https://i.postimg.cc/PfQBj6YS/photo-2026-04-13-00-08-42.jpg&link=https://1024terabox.com/s/1JUlRE5sp0RWdYt04mb4rdg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/PfQBj6YS/photo-2026-04-13-00-08-42.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 456]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 456]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -190,11 +186,7 @@
             <a href="watch-movie.html?name=Premium Video&file=455&poster=https://i.postimg.cc/CMbwfHDH/photo-2026-04-13-00-07-40.jpg&link=https://1024terabox.com/s/1ZKWEvt9BzwY1DTPSFAem-A" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/CMbwfHDH/photo-2026-04-13-00-07-40.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 455]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 455]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -202,11 +194,7 @@
             <a href="watch-movie.html?name=Premium Video&file=454&poster=https://i.postimg.cc/ryDr6HB1/photo-2026-04-13-00-05-42.jpg&link=https://1024terabox.com/s/1h5I9XEzakq6M2BHp0G0O_w" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/ryDr6HB1/photo-2026-04-13-00-05-42.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 454]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 454]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -214,11 +202,7 @@
             <a href="watch-movie.html?name=Working Moms&file=453&poster=https://i.postimg.cc/7Z8PWt4v/photo-2026-04-13-00-04-42.jpg&link=https://1024terabox.com/s/1OHC5mJTJMY_7NQODgaempQ" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/7Z8PWt4v/photo-2026-04-13-00-04-42.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 453]</span>
-                    <div class="movie-title">Working Moms</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 453]</span><div class="movie-title">Working Moms</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -226,11 +210,7 @@
             <a href="watch-movie.html?name=Premium Video&file=452&poster=https://i.postimg.cc/gJNn9VDR/photo-2026-04-13-00-03-36.jpg&link=https://1024terabox.com/s/1OHC5mJTJMY_7NQODgaempQ" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/gJNn9VDR/photo-2026-04-13-00-03-36.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 452]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 452]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -238,11 +218,7 @@
             <a href="watch-movie.html?name=Premium Video&file=451&poster=https://i.postimg.cc/zGbWncj5/photo-2026-04-13-00-02-20.jpg&link=https://1024terabox.com/s/1rBxhnDZ_WTEUlgJ7HgzXbg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/zGbWncj5/photo-2026-04-13-00-02-20.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 451]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 451]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -250,11 +226,7 @@
             <a href="watch-movie.html?name=Premium Video&file=450&poster=https://i.postimg.cc/TPBtVbm0/photo-2026-04-13-00-00-15.jpg&link=https://1024terabox.com/s/1CQTpwsJw6qdEYzHhTVo8fg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/TPBtVbm0/photo-2026-04-13-00-00-15.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 450]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 450]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -262,11 +234,7 @@
             <a href="watch-movie.html?name=Premium Video&file=449&poster=https://i.postimg.cc/SswHx5Dz/photo-2026-04-13-00-58-38.jpg&link=https://1024terabox.com/s/1QwR07TnUQVHwSsJ1-ShC8Q" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/SswHx5Dz/photo-2026-04-13-00-58-38.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 449]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 449]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -274,11 +242,7 @@
             <a href="watch-movie.html?name=Premium Video&file=447&poster=https://i.postimg.cc/JnPW7KSL/photo-2026-04-12-23-52-17.jpg&link=https://1024terabox.com/s/1cCpARbxmZMoqt__Wiometg" class="card-link">
                 <div class="badge">MOVIE</div><div class="quality">4K UHD</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/JnPW7KSL/photo-2026-04-12-23-52-17.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 447]</span>
-                    <div class="movie-title">Premium Hollywood Video</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 447]</span><div class="movie-title">Premium Hollywood Video</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -286,11 +250,7 @@
             <a href="watch-movie.html?name=Shameless&file=446&poster=https://i.postimg.cc/CLtSfP5N/photo-2026-04-12-23-52-06.jpg&link=https://1024terabox.com/s/1WgwsZzAwPmRiXMDHHJeVJQ" class="card-link">
                 <div class="badge">SERIES</div><div class="quality">1080p</div>
                 <div class="poster-wrapper"><img src="https://i.postimg.cc/CLtSfP5N/photo-2026-04-12-23-52-06.jpg"></div>
-                <div class="movie-info">
-                    <span class="file-no">[FILE NO. 446]</span>
-                    <div class="movie-title">Shameless All Episodes</div>
-                    <div class="btn-download">Watch Now</div>
-                </div>
+                <div class="movie-info"><span class="file-no">[FILE NO. 446]</span><div class="movie-title">Shameless All Episodes</div><div class="btn-download">Watch Now</div></div>
             </a>
         </div>
 
@@ -298,12 +258,35 @@
 </div>
 
 <script>
+    function updateTotal() {
+        let total = document.getElementsByClassName('movie-card').length;
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('searchStatus').innerText = "All " + total + " movies loaded";
+    }
+
     function filterMovies() {
         let input = document.getElementById('movieSearch').value.toLowerCase();
         let cards = document.getElementsByClassName('movie-card');
+        let noResult = document.getElementById('noResult');
+        let status = document.getElementById('searchStatus');
+        let visibleCount = 0;
+
         for (let i = 0; i < cards.length; i++) {
             let text = cards[i].innerText.toLowerCase();
-            cards[i].style.display = text.includes(input) ? "" : "none";
+            if (text.includes(input)) {
+                cards[i].style.display = "";
+                visibleCount++;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+
+        if (visibleCount === 0) {
+            noResult.style.display = "block";
+            status.innerText = "No results found.";
+        } else {
+            noResult.style.display = "none";
+            status.innerText = input === "" ? "All " + cards.length + " movies loaded" : "Found " + visibleCount + " results.";
         }
     }
 </script>
