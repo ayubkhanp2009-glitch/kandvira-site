@@ -20,11 +20,9 @@
             height: auto;
         }
 
-        /* 9:16 Responsive Wrapper */
         .video-wrapper {
             width: 100%;
             position: relative;
-            /* Mobile par height thodi kam rakhi hai taaki button upar dikhe */
             padding-top: 140%; 
             background: #000;
             border-radius: 15px;
@@ -64,6 +62,18 @@
         
         #movieTitle { font-size: 18px; margin: 10px 0; color: white; line-height: 1.3; }
 
+        /* Description Style */
+        #movieDesc { 
+            font-size: 13px; 
+            color: #aaa; 
+            line-height: 1.5; 
+            margin-bottom: 15px; 
+            text-align: left; 
+            display: none; /* Default hidden */
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+
         .btn-watch { 
             display: block; 
             background: var(--accent); 
@@ -77,7 +87,6 @@
             box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
         }
 
-        /* Desktop par thoda bada dikhe */
         @media (min-width: 768px) {
             .video-wrapper { padding-top: 177.77%; }
             .player-container { margin: 30px auto; }
@@ -99,16 +108,30 @@
     <div class="movie-details">
         <span class="file-tag" id="fileNoTag">FILE NO. --</span>
         <h1 id="movieTitle">Loading...</h1>
+        
+        <div id="movieDesc"></div>
+
         <a href="#" id="watchBtn" class="btn-watch">WATCH NOW (TERABOX)</a>
     </div>
 </div>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // Title, File No, Poster set karna
     document.getElementById('movieTitle').innerText = urlParams.get('name') || "Hollywood Movie";
     document.getElementById('fileNoTag').innerText = "[FILE NO. " + (urlParams.get('file') || "000") + "]";
     document.getElementById('playerPoster').src = urlParams.get('poster') || "";
     
+    // Description logic
+    const description = urlParams.get('desc');
+    if (description) {
+        const descBox = document.getElementById('movieDesc');
+        descBox.innerText = description;
+        descBox.style.display = "block"; // Show only if description exists
+    }
+    
+    // Links set karna
     const mTera = urlParams.get('link') || "#";
     document.getElementById('mainPlayLink').href = mTera;
     document.getElementById('watchBtn').href = mTera;
