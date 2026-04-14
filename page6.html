@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>TeraBox Videos - Page 6 | Viral Library 2026</title>
-    <meta name="description" content="Watch trending viral videos on Page 6. Direct Terabox links for the best collection of 2026.">
+    <title>TeraBox Videos - Page 6 | Latest Viral Collection 2026</title>
+    <meta name="description" content="Explore Page 6 for more trending viral videos and exclusive updates. Direct TeraBox links for fast access.">
     <meta name="robots" content="index, follow">
 
     <link rel="icon" type="image/png" href="favicon.png">
@@ -13,13 +13,6 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Pagination ko mobile friendly aur saaf dikhane ke liye */
-        .pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 20px; margin-top: 20px; }
-        .pagination a, .pagination span { padding: 8px 12px; border: 1px solid #333; text-decoration: none; color: white; border-radius: 4px; font-size: 14px; transition: 0.3s; }
-        .pagination a.active { background-color: #00d4ff; color: black; border-color: #00d4ff; font-weight: bold; }
-        .pagination a:hover:not(.active) { background-color: #222; border-color: #00d4ff; }
-    </style>
 </head>
 <body>
 
@@ -45,21 +38,20 @@
 </header>
 
 <div class="category">
-    <span class="material-icons" style="vertical-align: middle; margin-right:5px">auto_awesome</span> Exclusive Updates (Page 6)
+    <span class="material-icons" style="vertical-align: middle; margin-right:5px">auto_awesome</span> Video Library (Page 6)
 </div>
 
 <div class="grid" id="videoGrid">
     </div>
 
-<div class="pagination">
+<div class="pagination" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 20px;">
     <a href="page5.html">&laquo; Prev</a>
-    
     <a href="index.html">1</a>
     <a href="page2.html">2</a>
     <a href="page3.html">3</a>
     <a href="page4.html">4</a>
     <a href="page5.html">5</a>
-    <a href="#" class="active">6</a>
+    <a href="#" class="active" style="background-color: #00d4ff; color: black; font-weight: bold;">6</a>
     <a href="page7.html">7</a>
     <a href="page8.html">8</a>
     <a href="page9.html">9</a>
@@ -84,24 +76,33 @@
     <a href="page28.html">28</a>
     <a href="page29.html">29</a>
     <a href="page30.html">30</a>
-    
     <a href="page7.html">Next &raquo;</a>
 </div>
 
 <script>
-    function openNav() { document.getElementById("mySidebar").style.width = "250px"; document.getElementById("overlay").style.display = "block"; }
-    function closeNav() { document.getElementById("mySidebar").style.width = "0"; document.getElementById("overlay").style.display = "none"; }
-    function openSearch() { document.getElementById("searchBar").style.display = "flex"; document.getElementById("searchInput").focus(); }
-    function closeSearch() { 
-        document.getElementById("searchBar").style.display = "none"; 
-        document.getElementById("searchInput").value = ""; 
-        document.querySelectorAll('.card').forEach(card => card.style.display = "block");
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("overlay").style.display = "block";
+    }
+    function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("overlay").style.display = "none";
+    }
+    function openSearch() {
+        document.getElementById("searchBar").style.display = "flex";
+        document.getElementById("searchInput").focus();
+    }
+    function closeSearch() {
+        document.getElementById("searchBar").style.display = "none";
+        document.getElementById("searchInput").value = "";
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(card => card.style.display = "block");
     }
 
-    // Search Logic
     document.getElementById("searchInput").onkeyup = function() {
         let filter = this.value.toLowerCase();
-        document.querySelectorAll('.card').forEach(card => {
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
             let title = card.querySelector('.card-title').innerText.toLowerCase();
             card.style.display = title.includes(filter) ? "block" : "none";
         });
