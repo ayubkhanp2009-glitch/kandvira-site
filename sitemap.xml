@@ -26,19 +26,34 @@
     <priority>0.7</priority>
   </url>
 
-  <url>
-    <loc>https://kandviral.shop/page2.html</loc>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://kandviral.shop/page3.html</loc>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://kandviral.shop/page4.html</loc>
-    <priority>0.6</priority>
-  </url>
+  <url><loc>https://kandviral.shop/page2.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page3.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page4.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page5.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page6.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page7.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page8.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page9.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page10.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page11.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page12.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page13.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page14.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page15.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page16.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page17.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page18.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page19.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page20.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page21.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page22.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page23.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page24.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page25.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page26.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page27.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page28.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page29.html</loc><priority>0.8</priority></url>
+  <url><loc>https://kandviral.shop/page30.html</loc><priority>0.8</priority></url>
 
 </urlset>
