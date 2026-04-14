@@ -8,35 +8,25 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <script type="application/ld+json" id="schema-script">
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoObject",
-      "name": "TeraBox Viral Video",
-      "description": "Watch the latest viral video updates on TeraBox Player.",
-      "thumbnailUrl": "favicon.png",
-      "uploadDate": "2026-04-12T08:00:00+08:00",
-      "contentUrl": "https://www.player-terabox-video.pics/video.html",
-      "embedUrl": "https://www.player-terabox-video.pics/video.html"
-    }
-    </script>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        body { background: #111; color: white; margin: 0; }
+        body { background: #111; color: white; margin: 0; font-family: sans-serif; }
         .player-container { padding: 15px; text-align: center; }
-        .thumb-box { width: 100%; max-width: 600px; margin: 0 auto 20px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
+        .thumb-box { width: 100%; max-width: 600px; margin: 0 auto 20px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; cursor: pointer; }
         .thumb-box img { width: 100%; display: block; filter: brightness(0.8); }
         .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 80px; color: rgba(255,255,255,0.9); }
         
         .video-details { text-align: left; max-width: 600px; margin: 0 auto; padding: 10px; }
         .video-details h2 { font-size: 20px; color: #00897b; margin-bottom: 10px; }
-        .video-details p { color: #ccc; font-size: 14px; line-height: 1.5; border-left: 3px solid #00897b; padding-left: 10px; }
         
+        /* 🔥 Working Tags Style */
+        .tag-container { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-btn { background: #222; color: #00d4ff; border: 1px solid #00d4ff; padding: 5px 12px; border-radius: 20px; font-size: 13px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .tag-btn:hover { background: #00d4ff; color: black; }
+
         .action-area { margin-top: 30px; text-align: center; }
         .play-btn { background: #00897b; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(0,137,123,0.4); }
-        .play-btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
@@ -55,7 +45,7 @@
 
     <div class="video-details">
         <h2 id="v-title">Loading Title...</h2>
-        <p id="v-desc">Watch this video on TeraBox. Click the button below to start streaming or download the file.</p>
+        <div class="tag-container" id="v-tags"></div>
     </div>
 
     <div class="action-area">
@@ -65,61 +55,54 @@
     </div>
 </div>
 
+<script id="schema-script" type="application/ld+json">{}</script>
+
 <script>
-    // URL se data nikalne ka logic
     const params = new URLSearchParams(window.location.search);
     const title = params.get('title');
     const link = params.get('link');
     const img = params.get('img');
+    const tags = params.get('tags'); // Naya Param
 
-    // Title set karein
     if(title) {
         document.getElementById('v-title').innerText = title;
-        document.title = title; // Browser tab ka naam
+        document.title = title;
     }
 
-    // Link set karein
     if(link) {
         document.getElementById('v-link').href = link;
-        document.getElementById('thumb-container').onclick = function() {
-            window.location.href = link;
-        };
+        document.getElementById('thumb-container').onclick = function() { window.location.href = link; };
     }
 
-    // Thumbnail set karein
-    if(img) {
-        document.getElementById('v-thumb').src = img;
-    } else {
-        document.getElementById('v-thumb').style.display = 'none';
+    if(img) { document.getElementById('v-thumb').src = img; }
+
+    // 🔥 WORKING TAGS LOGIC
+    if(tags) {
+        const tagBox = document.getElementById('v-tags');
+        const tagList = tags.split(',');
+        tagList.forEach(tag => {
+            const cleanTag = tag.trim();
+            const a = document.createElement('a');
+            a.className = 'tag-btn';
+            // Click karne par index.html par bhejega aur wahan search chal jayega
+            a.href = "index.html?search=" + encodeURIComponent(cleanTag);
+            a.innerText = "#" + cleanTag;
+            tagBox.appendChild(a);
+        });
     }
 
-    // --- Dynamic Schema Update Logic ---
+    // Dynamic Schema (Same as before)
     try {
-        const currentUrl = window.location.href;
-        const sTitle = title || "Viral TeraBox Video";
-        const sImg = img || "favicon.png";
-
         const schemaData = {
           "@context": "https://schema.org",
           "@type": "VideoObject",
-          "name": sTitle,
-          "description": "Watch " + sTitle + " full video on TeraBox player. Latest viral updates 2026.",
-          "thumbnailUrl": sImg,
+          "name": title || "Viral Video",
+          "thumbnailUrl": img || "favicon.png",
           "uploadDate": new Date().toISOString(),
-          "contentUrl": currentUrl,
-          "embedUrl": currentUrl,
-          "publisher": {
-            "@type": "Organization",
-            "name": "TeraBox Videos",
-            "logo": {
-              "@type": "ImageObject",
-              "url": window.location.origin + "/favicon.png"
-            }
-          }
+          "contentUrl": window.location.href
         };
         document.getElementById('schema-script').text = JSON.stringify(schemaData);
-    } catch(e) { console.log("Schema error"); }
+    } catch(e) {}
 </script>
-
 </body>
 </html>
